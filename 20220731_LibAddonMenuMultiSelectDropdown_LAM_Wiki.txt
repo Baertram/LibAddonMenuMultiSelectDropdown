@@ -1,0 +1,63 @@
+## This widget is not included into LibAddonMenu and needs to be separately download from www.esoui.com:
+https://www.esoui.com/downloads/info3435.html
+
+![MultiSelectDropdown example image](https://cdn-eso.mmoui.com/preview/pvw11745.png)
+
+## Possibilities:
+1. Multiple selected entries in a collapsible dropdown box
+1. Context menu to "Select all" or "Clear all selected"
+
+## Important:
+The getFunc needs to pass in the table with ONLY the entries which have been selected!
+The setFunc will save ONLY the selected entries to the SavedVariables!
+You need to specify ALL possible entries with the parameter "choices".
+
+
+## Data Table
+|  property           |  type                    | default | required |                            description                                                  |
+|:--------------------|:-------------------------|:--------|:---------|:----------------------------------------------------------------------------------------|
+| type                | string                   | -       | yes      | The widget type of this control ("dropdown")                                            |
+| name                | string                   | -       | yes      | "My Dropdown", or string id or function returning a string                              |
+| choices             | table                    | -       | yes      | {"table", "of", "choices"}                                                              |
+| choicesValues       | table                    | -       | no       | {"foo", 2, "three"}, if specified, these values will get passed to setFunc instead      |
+| choicesTooltips     | table                    | -       | no       | {"tooltip 1", "tooltip 2", "tooltip 3"}, or array of string ids or array of functions returning a string |
+| multiSelectType| string                   | normal | no | "normal" or "allowed". "normal" = a list with key = number index an value = String, "allowed" = a list with key = any String or number and value = boolean. If value == true then the entry will be added. Default = "normal"
+| getFunc             | function                 | -       | yes      | The value provider for the dropdown.                                                    |
+| setFunc             | function                 | -       | yes      | The assignment function for the dropdown.                                               |
+| noSelectionText| string                   | GetString(SI_KEEPRESOURCETYPE0)       | no      | String or function returning a string to show if no selection was done yet
+| multiSelectionTextFormatter| string                   | "<<1[$d Item/$d Items]>>"       | no | String pattern for function zo_strformat(multiSelectionTextFormat, numSelectedItems) to set the "selected item text"
+| tooltip             | table                    | -       | no       | "Dropdown's tooltip text.", or string id or function returning a string                 
+| sort                | string                   | -       | no       | "name-up", "name-down", "numeric-up", "numeric-down", "value-up", "value-down", "numericvalue-up", "numericvalue-down". If  not provided, list will not be sorted. |
+| width               | string                   | "full"  | no       | "full" or "half" width in the dropdown                                                  |
+| scrollable          | boolean, number          | -       | no       | if set the dropdown will feature a scroll bar if there are a large amount of choices and limit the visible lines to the specified number or 10 if true is used |
+| disabled            | boolean, function        | false   | no       | Determines if the dropdown is disabled and its value cannot be changed                  |
+| warning             | number, string, function | nil     | no       | Shows a warning icon beside the dropdown which has a tooltip with some warning text     |
+| requiresReload      | boolean                  | false   | no       | Appends a special warning text and shows a reload button if the value is changed        |
+| default             | number, function         | nil     | no       | Default value of the dropdown which is used to reset the panel to its defaults          |
+| helpUrl             | string, function         | -       | no       | A string URL "https://www.esoui.com", or a function that returns one                    |
+| reference           | string                   | nil     | no       | A unique global reference to the control                                                |
+
+## Examples
+```lua
+ {
+    type = "multiselectdropdown",
+    name = "My Multi Select Dropdown", -- or string id or function returning a string
+    noSelectionText = GetString(SI_KEEPRESOURCETYPE0), -- String or function returning a string to show if no selection was done yet
+    multiSelectionTextFormatter = "<<1[$d Item/$d Items]>>" -- if specified, this will be used with zo_strformat(multiSelectionTextFormat, numSelectedItems) to set the "selected item text" (optional)
+    tooltip = "Dropdown's tooltip text.", -- or string id or function returning a string (optional)
+    multiSelectType = "normal", -- or "allowed". "normal" = a list with key = number index an value = String, "allowed" = a list with key = any String or number and value = boolean. If value == true then the entry will be added. Default = "normal" (optional)
+    choices = {"table", "of", "choices"},
+    choicesValues = {"foo", 2, "three"}, -- if specified, these values will get passed to setFunc instead (optional)
+    choicesTooltips = {"tooltip 1", "tooltip 2", "tooltip 3"}, -- or array of string ids or array of functions returning a string (optional)
+    getFunc = function() return db.var end,
+    setFunc = function(var) db.var = var doStuff() end,
+    sort = "name-up", -- or "name-down", "numeric-up", "numeric-down", "value-up", "value-down", "numericvalue-up", "numericvalue-down" (optional) - if not provided, list will not be sorted
+    width = "full", -- or "half" (optional)
+    disabled = function() return db.someBooleanSetting end, -- or boolean (optional)
+    warning = "May cause permanent awesomeness.", -- or string id or function returning a string (optional)
+    requiresReload = false, -- boolean, if set to true, the warning text will contain a notice that changes are only applied after an UI reload and any change to the value will make the "Apply Settings" button appear on the panel which will reload the UI when pressed (optional)
+    default = default.var, -- default values or function that returns the default values (optional)
+    helpUrl = "https://www.esoui.com/portal.php?id=218&a=faq", -- a string URL or a function that returns the string URL (optional)
+    reference = "MyAddonMultiSelectDropdown" -- unique global reference to control (optional)
+}
+```
