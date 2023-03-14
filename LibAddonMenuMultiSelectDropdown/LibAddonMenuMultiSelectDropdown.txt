@@ -1,7 +1,7 @@
-## APIVersion: 101034 101035
+## APIVersion: 101037 101038
 ## Title: LibAddonMenu-2.0 - MultiSelect dropdown widget
-## Version: 1
-## AddOnVersion: 001
+## Version: 2
+## AddOnVersion: 002
 ## IsLibrary: true
 ## DependsOn: LibAddonMenu-2.0>=34
 ## Author: Baertram

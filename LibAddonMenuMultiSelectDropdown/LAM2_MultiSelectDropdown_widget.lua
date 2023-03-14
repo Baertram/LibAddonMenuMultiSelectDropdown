@@ -20,7 +20,7 @@
     reference = "MyAddonMultiSelectDropdown" -- unique global reference to control (optional)
 } ]]
 
-local widgetVersion = 1
+local widgetVersion = 2
 local widgetName = "LibAddonMenuMultiSelectDropdown"
 local widgetPrefix = "[" .. widgetName .. "]"
 
@@ -36,13 +36,13 @@ local strform = string.format
 
 --Translations
 local translations = {
-    ["en"] = {
-        ENTRY =     "entry",
-        ENTRIES =   "entries",
-    },
     ["de"] = {
         ENTRY =     "Eintrag",
         ENTRIES =   "Einträge",
+    },
+    ["en"] = {
+        ENTRY =     "entry",
+        ENTRIES =   "entries",
     },
     ["es"] = {
         ENTRY =     "apunte",
@@ -59,6 +59,10 @@ local translations = {
     ["ru"] = {
         ENTRY =     "статья",
         ENTRIES =   "статьяs",
+    },
+    ["zh"] = {
+        ENTRY =     "入口",
+        ENTRIES =   "条目",
     },
 }
 local lang = string.lower(GetCVar("Language.2"))
